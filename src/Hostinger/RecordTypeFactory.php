@@ -7,6 +7,7 @@ use Hostinger\RecordType\RecordType;
 class RecordTypeFactory
 {
     private $dnsTypes = [
+        DNS_A     => 'A',
         DNS_MX    => 'MX',
         DNS_CNAME => 'CNAME',
         DNS_NS    => 'NS',
@@ -33,5 +34,4 @@ class RecordTypeFactory
     {
         return $this->dnsTypes[$dnsType];
     }
-
 }
