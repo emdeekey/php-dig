@@ -9,7 +9,7 @@ class RecordTypeFactory
     private $dnsTypes = [
         DNS_A     => 'A',
         DNS_A6    => 'A6',
-        DNS_AAAA  => 'AAAS',
+        DNS_AAAA  => 'AAAA',
         DNS_MX    => 'MX',
         DNS_CNAME => 'CNAME',
         DNS_NS    => 'NS',

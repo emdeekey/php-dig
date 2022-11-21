@@ -2,7 +2,7 @@
 
 namespace Hostinger\RecordType;
 
-class AAAA extends A
+class Aaaa extends A
 {
     public function getType()
     {
