@@ -21,7 +21,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider domainsAndTypesProvider
      */
-    public function testgetRecords($domain, $type)
+    public function testGetRecords($domain, $type)
     {
         $client = new Hostinger\DigClient();
         $result = $client->getRecord($domain, $type);
@@ -37,4 +37,25 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected[0]['class'], $result[0]['class']);
         $this->assertEquals($expected[0]['type'], $result[0]['type']);
     }
+
+    /**
+     * @dataProvider domainsAndTypesProvider
+     */
+    public function testGetRecordsFromOtherDNSServer($domain, $type)
+    {
+        $client = new Hostinger\DigClient();
+        $result = $client->getRecord($domain, $type, '1.1.1.1');
+        $this->assertTrue(is_array($result));
+        $this->assertArrayHasKey(0, $result);
+
+        $expected = dns_get_record($domain, $type);
+
+        $resultExpecteKeySame = array_diff_key($expected[0], $result[0]);
+        $this->assertEmpty($resultExpecteKeySame, json_encode($resultExpecteKeySame));
+
+        $this->assertEquals($expected[0]['host'], $result[0]['host']);
+        $this->assertEquals($expected[0]['class'], $result[0]['class']);
+        $this->assertEquals($expected[0]['type'], $result[0]['type']);
+    }
+
 }

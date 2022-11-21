@@ -15,8 +15,12 @@ $ composer require hostinger/php-dig
 ## Usage
 
 ```php
+// default usage
 $client = new Hostinger\DigClient();
 $result = $client->getRecord('hostinger.com', DNS_MX);
+
+// Use an other DNS Server
+$result = $client->getRecord('hostinger.com', DNS_MX, '1.1.1.1');
 ```
 
 This is equal to 
@@ -43,7 +47,7 @@ $client->setLogger($logger);
 
 ### Submitting bugs and feature requests
 
-Bugs and feature request are tracked on [GitHub](https://github.com/hostinger/php-dig/issues)
+Bugs and feature request are tracked on [GitHub](https://github.com/emdeekey/php-dig/issues)
 
 
 ## Sources

@@ -15,7 +15,7 @@ class DigClient implements LoggerAwareInterface
         $this->logger = new NullLogger();
     }
 
-    public function getRecord($domain, $type)
+    public function getRecord($domain, $type, $server = '8.8.8.8')
     {
         $recordTypeFactory = new RecordTypeFactory();
         $recordType        = $recordTypeFactory->make($type);
@@ -37,7 +37,7 @@ class DigClient implements LoggerAwareInterface
         }
 
         $this->logger->debug('execute dig', ['domain' => $domain, 'type' => $recordType->getType()]);
-        return (new ExecuteDigCommand())->execute($domain, $recordType);
+        return (new ExecuteDigCommand())->execute($domain, $recordType, $server);
     }
 
     /**
