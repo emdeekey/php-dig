@@ -11,6 +11,7 @@ class RecordTypeFactory
         DNS_MX    => 'MX',
         DNS_CNAME => 'CNAME',
         DNS_NS    => 'NS',
+        DNS_TXT   => 'TXT',
     ];
 
     /**
