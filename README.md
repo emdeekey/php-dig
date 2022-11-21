@@ -39,7 +39,7 @@ $client->setLogger($logger);
 
 ### Requirements
 
-- php-dig client works with PHP 5.6 or above.
+- php-dig client works with PHP 8.1 or above.
 
 ### Submitting bugs and feature requests
 
