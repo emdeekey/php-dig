@@ -2,18 +2,25 @@
 
 namespace Hostinger;
 
+use Hostinger\RecordType\A;
+use Hostinger\RecordType\A6;
+use Hostinger\RecordType\Aaaa;
+use Hostinger\RecordType\Cname;
+use Hostinger\RecordType\Mx;
+use Hostinger\RecordType\Ns;
 use Hostinger\RecordType\RecordType;
+use Hostinger\RecordType\Txt;
 
 class RecordTypeFactory
 {
-    private $dnsTypes = [
-        DNS_A     => 'A',
-        DNS_A6    => 'A6',
-        DNS_AAAA  => 'AAAA',
-        DNS_MX    => 'MX',
-        DNS_CNAME => 'CNAME',
-        DNS_NS    => 'NS',
-        DNS_TXT   => 'TXT',
+    public static $dnsTypes = [
+        DNS_A     => A::class,
+        DNS_A6    => A6::class,
+        DNS_AAAA  => Aaaa::class,
+        DNS_CNAME => Cname::class,
+        DNS_MX    => Mx::class,
+        DNS_NS    => Ns::class,
+        DNS_TXT   => Txt::class,
     ];
 
     /**
@@ -22,11 +29,17 @@ class RecordTypeFactory
      */
     public function make($dnsType)
     {
-        $class = '\\Hostinger\\RecordType\\' . ucfirst(strtolower($this->convertDnsTypeToString($dnsType)));
+        $class = $this->convertDnsTypeToString($dnsType);
         if (!class_exists($class)) {
             return null;
         }
-        return new $class();
+
+        $obj = new $class();
+        if (!$obj instanceof RecordType) {
+            return null;
+        }
+
+        return $obj;
     }
 
     /**
@@ -35,6 +48,6 @@ class RecordTypeFactory
      */
     public function convertDnsTypeToString($dnsType)
     {
-        return $this->dnsTypes[$dnsType];
+        return self::$dnsTypes[$dnsType];
     }
 }
